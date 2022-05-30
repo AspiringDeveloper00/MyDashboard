@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MyDashboard: Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/back-to-top-btn.css') }}">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <script>
+        Swal.fire({
+            icon: '{{category}}',
+            text: '{{message}}'
+        });
+    </script>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+
+
+    <header>
+        <nav class="navbar navbar-dark navbar-expand-lg  fixed-top " id="primary-nav">
+            <div class="container-fluid left">
+                <a class="navbar-brand" id="logo" href="#">
+                    <img src="{{ url_for('static', filename='images/logo-purple.png') }}" class="logo-icon" alt="">
+                    <span class="name-top"><b>MyDashboard</b></span>
+                </a>
+                <button id="hamburger" class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span id="span-1"> </span>
+                    <span> </span>
+                    <span id="span-3"> </span>
+                </button>
+                <div id="navbarCollapse" class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="{{ url_for('home') }}" class="nav-link nav-link-fade-up">
+                                Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('dashboard') }}" class="nav-link nav-link-fade-up ">
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('technical_index') }}" class="nav-link nav-link-fade-up">
+                                Technical Indicators
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('viewing') }}" class="nav-link nav-link-fade-up active">
+                                Portfolio
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            {%if session['username']%}
+                            <a href="{{ url_for('logout') }}" class="nav-link nav-link-fade-up">
+                                Logout
+                            </a>
+                            {%else%}
+                            <a href="{{ url_for('login') }}" class="nav-link nav-link-fade-up">
+                                Login
+                            </a>
+                            {%endif%}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Back to top button -->
+    <a id="button"><i><img src="{{ url_for('static', filename='images/up-black.png') }}" class="up-btn"></i></a>
+
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-md-6 d-flex justify-content-center">
+                <div class="status">
+                    <div class="header">
+                        <img class="icon" src="{{ url_for('static', filename='images/balance.png') }}">
+                        <h3 id="balance">
+                            
+                        </h3>
+                    </div>
+                    <div class="header">
+                        <img class="icon" src="{{ url_for('static', filename='images/net-worth.png') }}">
+                        <h3 id="net">
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 d-flex justify-content-center">
+                <div class="status">
+                    <div class="header">
+                        <img class="icon" src="{{ url_for('static', filename='images/company.png') }}">
+                        <h3 id="comp">
+                        </h3>
+                    </div>
+                    <div class="header">
+                        <img class="icon" src="{{ url_for('static', filename='images/stocks.png') }}">
+                        <h3 id="num">
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 7%;">
+            <div class="col-12 d-flex justify-content-center">
+                <div id="loading">
+                    <div class="lds-circle">
+                        <div></div>
+                    </div>
+                    <p style="color: white;">Loading<span></span>
+                    <p></p>
+                </div>
+                <button id="buysell" class="readmore">Buy/Sell</button>
+            </div>
+            <div class="col-12 d-flex justify-content-center" style="margin-top: 3%;">
+                <input type="number" id="amount" min="1" placeholder="Amount to add to balance" style="margin-right: 2%;width: 250px;">
+                <button id="balance-btn" class="readmore">Add to Balance</button>
+            </div>
+        </div>
+        <div class="row" id="table" style="margin-top: 7%;">
+            <div class="col-12 d-flex justify-content-center">
+                <table class="table table-dark borderless" style="border-radius: 20px;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Stock</th>
+                        <th scope="col">Previous Close</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Change</th>
+                        <th scope="col">Change(%)</th>
+                        <th scope="col">Stocks Owned</th>
+                        <th scope="col">Amount Spent</th>
+                        <th scope="col">Current Value</th>
+                        <th scope="col">Loss/Gain</th>
+                      </tr>
+                    </thead>
+                    <tbody id="body-table">
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{{ url_for('static', filename='javascript/portfolio.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/animate.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/navbar.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/back-to-top-btn.js') }}"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+</html>

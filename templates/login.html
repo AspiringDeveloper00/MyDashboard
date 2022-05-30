@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MyDashboard: Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+</head>
+
+<body>
+    
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+    <script>
+      Swal.fire({
+      icon:'{{category}}',
+      text: '{{message}}'
+        });
+    </script>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<header>
+  <nav class="navbar navbar-dark navbar-expand-lg  fixed-top " id="primary-nav">
+      <div class="container-fluid left">
+          <a class="navbar-brand" id="logo" href="#">
+              <img src="{{ url_for('static', filename='images/logo-purple.png') }}" class="logo-icon" alt="">
+              <span class="name-top"><b>MyDashboard</b></span>
+          </a>
+          <button id="hamburger" class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+              data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <span id="span-1"> </span>
+              <span> </span>
+              <span id="span-3"> </span>
+          </button>
+          <div id="navbarCollapse" class="collapse navbar-collapse">
+              <ul class="navbar-nav">
+                  <li class="nav-item">
+                      <a href="{{ url_for('home') }}" class="nav-link nav-link-fade-up">
+                          Home
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ url_for('dashboard') }}" class="nav-link nav-link-fade-up ">
+                          Dashboard
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ url_for('technical_index') }}" class="nav-link nav-link-fade-up">
+                          Technical Indicators
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ url_for('viewing') }}" class="nav-link nav-link-fade-up">
+                          Portfolio
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      {%if session['username']%}
+                      <a href="{{ url_for('logout') }}"  class="nav-link nav-link-fade-up">
+                          Logout
+                      </a>
+                      {%else%}
+                      <a href="{{ url_for('login') }}" class="nav-link nav-link-fade-up active">
+                          Login
+                      </a>
+                      {%endif%}
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+</header>
+    <div class="container top">
+        <section id="formHolder">
+
+            <div class="row">
+
+                <!-- Brand Box -->
+                <div class="col-md-6 brand">
+                    </a>
+
+                    <div class="heading">
+                        <h2>MyDashboard</h2>
+                        <p>Best stock/crypto platform out there!</p>
+                    </div>
+                </div>
+
+
+                <!-- Form Box -->
+                <div class="col-md-6 form">
+
+                    <!-- Login Form -->
+                    <div class="login form-peice switched">
+                        <form class="login-form"  action="login" method="post">
+                            <div class="form-group">
+                                <label for="loginemail">Email Adderss</label>
+                                <input type="email" name="loginemail" class="loginemail" id="loginemail" >
+                                <span class="error"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="loginPassword">Password</label>
+                                <input type="password" name="loginPassword" class="loginPassword" id="loginPassword">
+                                <span class="error"></span>
+                            </div>
+
+                            <div class="CTA">
+                                <input type="submit" class="readmore" name="login" value="Login">
+                                <a href="#" class="switch">I'm New</a>
+                            </div>
+                        </form>
+                    </div><!-- End Login Form -->
+
+
+                    <!-- Signup Form -->
+                    <div class="signup form-peice">
+                        <form class="signup-form" action="signup" method="post">
+
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" name="username" id="username" class="username">
+                                <span class="error"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email Adderss</label>
+                                <input type="email" name="emailAdress" id="email" class="email">
+                                <span class="error"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" class="pass">
+                                <span class="error"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="passwordCon">Confirm Password</label>
+                                <input type="password" name="passwordCon" id="passwordCon" class="passConfirm">
+                                <span class="error"></span>
+                            </div>
+
+                            <div class="CTA">
+                                <input type="submit" value="Signup Now" name="signup"  class="readmore" id="submit">
+                                <a href="#" class="switch">I have an account</a>
+                            </div>
+                        </form>
+                    </div><!-- End Signup Form -->
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="{{ url_for('static', filename='javascript/animate.js') }}"></script>
+  <script src="{{ url_for('static', filename='javascript/navbar.js') }}"></script>
+  <script src="{{ url_for('static', filename='javascript/login.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+#button {
+  display: inline-block;
+  background-color: #01E59B;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+  background-color: #01E59B;
+  color: white;
+  transition: all 500ms;
+  background-image: linear-gradient(to bottom, transparent 0%, transparent 50%, white 50%, white 100%);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 200px 180px;
+}
+
+#button:hover {
+  color: #01E59B;
+  background-position: 0 -90px;
+}
+
+#button.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.up-btn {
+  margin-top: 10px;
+}

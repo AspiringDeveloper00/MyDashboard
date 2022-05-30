@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MyDashboard: Technical Indicators</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tech.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/back-to-top-btn.css') }}">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-cartesian.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-stock.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-data-adapter.min.js"></script>
+
+    <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-ui.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-exports.min.js"></script>
+
+    <link href="https://cdn.anychart.com/releases/8.10.0/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
+    <link href="https://cdn.anychart.com/releases/8.10.0/fonts/css/anychart-font.min.css" type="text/css"
+        rel="stylesheet">
+
+
+</head>
+
+<body>
+
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <script>
+        Swal.fire({
+            icon: '{{category}}',
+            text: '{{message}}'
+        });
+    </script>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <header>
+        <nav class="navbar navbar-dark navbar-expand-lg  fixed-top " id="primary-nav">
+            <div class="container-fluid left">
+                <a class="navbar-brand" id="logo" href="#">
+                    <img src="{{ url_for('static', filename='images/logo-purple.png') }}" class="logo-icon" alt="">
+                    <span class="name-top"><b>MyDashboard</b></span>
+                </a>
+                <button id="hamburger" class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span id="span-1"> </span>
+                    <span> </span>
+                    <span id="span-3"> </span>
+                </button>
+                <div id="navbarCollapse" class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="{{ url_for('home') }}" class="nav-link nav-link-fade-up">
+                                Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('dashboard') }}" class="nav-link nav-link-fade-up ">
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('technical_index') }}" class="nav-link nav-link-fade-up active">
+                                Technical Indicators
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('viewing') }}" class="nav-link nav-link-fade-up">
+                                Portfolio
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            {%if session['username']%}
+                            <a href="{{ url_for('logout') }}" class="nav-link nav-link-fade-up">
+                                Logout
+                            </a>
+                            {%else%}
+                            <a href="{{ url_for('login') }}" class="nav-link nav-link-fade-up">
+                                Login
+                            </a>
+                            {%endif%}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <a id="button"><i><img src="{{ url_for('static', filename='images/up-black.png') }}" class="up-btn"></i></a>
+
+
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-12">
+                <div class="search">
+                    <h4>Insert values to get exactly the information you need from out technical indicators which they
+                        will assist you making your decisions regarding the future of your selected stock!</h4>
+                    <label for="stock">Company's Symbol:</label>
+                    <div class="autocomplete">
+                        {% if name!=None%}
+                        <input id="stock" type="text" name="stock" readonly value="{{name}}">
+                        {% else %}
+                        <input id="stock" type="text" name="stock" placeholder="Search a stock">
+                        {%endif%}
+                    </div>
+                    <label for="indicator">Technical Indicator:</label>
+                    <select name="indicator_name" id="indicator">
+                        <option selected disabled>Select Indicator</option>
+                        <option value="DEMA">DEMA</option>
+                        <option value="EMA">EMA</option>
+                        <option value="RSI">RSI</option>
+                        <option value="SMA">SMA</option>
+                        <option value="T3">T3</option>
+                        <option value="TEMA">TEMA</option>
+                        <option value="WMA">WMA</option>
+                    </select>
+                    <br><br>
+                    <label for="interval">Interval:</label>
+                    <select name="interval" id="interval">
+                        <option selected disabled>Select interval</option>
+                        <option value="1min">1 minute</option>
+                        <option value="5min">5 minutes</option>
+                        <option value="15min">15 minutes</option>
+                        <option value="30min">30 minutes</option>
+                        <option value="60min">60 minutes</option>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                    <label for="period">Time Period:</label>
+                    <input name="period" type="number" id="period" min="1" max="200">
+                    <label for="type">Series Type:</label>
+                    <select name="type" id="type">
+                        <option selected disabled>Select type</option>
+                        <option value="open">Open</option>
+                        <option value="close">Close</option>
+                        <option value="high">High</option>
+                        <option value="low">Low</option>
+                    </select>
+                    <br><br><br>
+                    <button class="readmore" id="search"> Search!</button>
+                    <div id="loading">
+                        <div class="lds-circle">
+                            <div></div>
+                        </div>
+                        <p style="color: white;">Loading<span></span>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row top">
+            <div class="col-12">
+                <div id="container"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.3/underscore-min.js"
+        integrity="sha512-01+8Rdvg1kM8Bu9AJTtDhyyuZmJHOjD1+fxA9S1sh3A7NyRFHpVCqt5vT7JqMxCTf/oEJIPOzYnc0R8l052+UA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+    <script src="{{ url_for('static', filename='javascript/animate.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/navbar.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/back-to-top-btn.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/tech.js') }}"></script>
+
+
+
+
+
+</body>
+
+</html>

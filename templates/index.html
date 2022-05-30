@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>MyDashboard: Home</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/back-to-top-btn.css') }}">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <script>
+    Swal.fire({
+      icon: '{{category}}',
+      text: '{{message}}'
+    });
+  </script>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+  <script>
+    if (localStorage['message']) {
+      Swal.fire({
+        icon: 'success',
+        text: localStorage['message']
+      });
+      localStorage.removeItem('message')
+    }
+  </script>
+
+
+<header>
+  <nav class="navbar navbar-dark navbar-expand-lg  fixed-top " id="primary-nav">
+      <div class="container-fluid left">
+          <a class="navbar-brand" id="logo" href="#">
+              <img src="{{ url_for('static', filename='images/logo-purple.png') }}" class="logo-icon" alt="">
+              <span class="name-top"><b>MyDashboard</b></span>
+          </a>
+          <button id="hamburger" class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+              data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <span id="span-1"> </span>
+              <span> </span>
+              <span id="span-3"> </span>
+          </button>
+          <div id="navbarCollapse" class="collapse navbar-collapse">
+              <ul class="navbar-nav">
+                  <li class="nav-item">
+                      <a href="{{ url_for('home') }}" class="nav-link nav-link-fade-up active">
+                          Home
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ url_for('dashboard') }}" class="nav-link nav-link-fade-up ">
+                          Dashboard
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ url_for('technical_index') }}" class="nav-link nav-link-fade-up ">
+                          Technical Indicators
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ url_for('viewing') }}" class="nav-link nav-link-fade-up">
+                          Portfolio
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      {%if session['username']%}
+                      <a href="{{ url_for('logout') }}"  class="nav-link nav-link-fade-up">
+                          Logout
+                      </a>
+                      {%else%}
+                      <a href="{{ url_for('login') }}" class="nav-link nav-link-fade-up">
+                          Login
+                      </a>
+                      {%endif%}
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+</header>
+  <!-- Back to top button -->
+  <a id="button"><i><img src="{{ url_for('static', filename='images/up-black.png') }}" class="up-btn"></i></a>
+
+
+  <section class="section-1">
+    <div>
+      <div class="container-fluid animate__animated animate__backInLeft ">
+        <div class="row" id="first">
+          <div class="col-sm-8 col-10">
+            <p class="header">An innovative Dashboard App.</p>
+            <p class="subtext  underline"><span class="name">MyDashboard</span> is the best platform to help you get
+              updates on your personal portfolio and stay informed on the latest news regarding stocks!</p>
+            {%if session['username']%}
+            <button class="readmore" onclick="window.location='dashboard'">Get started!</button>
+            {%else%}
+            <button class="readmore" onclick="window.location='login'">Get started!</button>
+            {%endif%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section-2">
+    <img src="{{ url_for('static', filename='images/mountain1.png') }}" class='mountain' alt="">
+    <h3 class="img-txt" data-aos="zoom-in-down" data-aos-duration="1000">Exchange Anywhere...</h3>
+  </section>
+
+
+
+  <section class="section-3">
+    <div class="container-fluid mx-auto">
+      <div class="row">
+        <div class="col-lg-4" data-aos="fade-right" data-aos-duration="1000">
+          <div class="card">
+            <div class="card_image"> <img src="{{ url_for('static', filename='images/monitor.gif') }}" /> </div>
+          </div>
+          <h3 class='card-header'>Monitor</h3>
+          <p class='card-text'>You can monitor stocks via our live interactive dashboard!</p>
+        </div>
+        <div class="col-lg-4" data-aos="fade-up" data-aos-duration="1000">
+          <div class="card">
+            <div class="card_image"> <img src="{{ url_for('static', filename='images/manage.gif') }}" /> </div>
+          </div>
+          <h3 class='card-header'>Manage</h3>
+          <p class='card-text'>Easily manage your portfolio and exchange stocks anywhere, anytime!</p>
+        </div>
+        <div class="col-lg-4" data-aos="fade-left" data-aos-duration="1000">
+          <div class="card">
+            <div class="card_image"> <img src="{{ url_for('static', filename='images/customize.webp') }}"
+                class="customize" /> </div>
+          </div>
+          <h3 class='card-header'>Customize</h3>
+          <p class='card-text'>Add stocks to your viewing list and select what you want to interact with!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="section-4">
+    <h3 class="header-anytime" data-aos="zoom-in-down" data-aos-duration="1000">Get Informed Anytime...</h3>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-md-6 day ">
+          <div class="center" data-aos="fade-down-right" data-aos-duration="1000">
+            <p class="text-anytime-day">During the day...</p>
+            <img class="day-img" src="{{ url_for('static', filename='images/day.gif') }}" alt="">
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 night ">
+          <div class="center" data-aos="fade-down-left" data-aos-duration="1000">
+            <p class="text-anytime-night">or during the night!</p>
+            <img class="night-img" src="{{ url_for('static', filename='images/night.gif') }}" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-5">
+    <p class="footer-header">Through our dashboard monitor and trade stocks like...</p>
+    <div class="container-fluid">
+      <div class="row center">
+        <div class="col-8 mx-auto">
+          <img data-aos="fade-down" data-aos-duration="1300" class="company-logo"
+            src="{{ url_for('static', filename='images/stocks/asset 2.png')}}" alt="">
+          <img data-aos="fade-down" data-aos-duration="1400" class="company-logo"
+            src="{{ url_for('static', filename='images/stocks/asset 3.png')}}" alt="">
+          <img data-aos="fade-down" data-aos-duration="1600" class="company-logo"
+            src="{{ url_for('static', filename='images/stocks/asset 5.png')}}" alt="">
+          <img data-aos="fade-down" data-aos-duration="1700" class="company-logo"
+            src="{{ url_for('static', filename='images/stocks/asset 6.svg')}}" alt="">
+          <img data-aos="fade-down-left" data-aos-duration="1800" class="company-logo"
+            src="{{ url_for('static', filename='images/stocks/asset 7.svg')}}" alt="">
+          <img data-aos="fade-down-left" data-aos-duration="1900" class="company-logo"
+            src="{{ url_for('static', filename='images/stocks/asset 8.svg')}}" alt="">
+          <img data-aos="fade-up-right" data-aos-duration="1100" class="company-logo"
+            src="{{ url_for('static', filename='images/stocks/asset 9.svg')}}" alt="">
+          <img data-aos="fade-up-right" data-aos-duration="1200" class="company-logo"
+            src="{{ url_for('static', filename='images/stocks/asset 10.svg')}}" alt="">
+          <img data-aos="fade-up" data-aos-duration="1400" class="company-logo"
+            src="{{ url_for('static', filename='images/stocks/asset 12.svg')}}" alt="">
+          <img data-aos="fade-up" data-aos-duration="1500" class="company-logo"
+            src="{{ url_for('static', filename='images/stocks/asset 13.svg')}}" alt="">
+          <img data-aos="fade-up" data-aos-duration="1600" class="company-logo"
+            src="{{ url_for('static', filename='images/stocks/asset 14.svg')}}" alt="">
+          <img data-aos="fade-up" data-aos-duration="1700" class="company-logo"
+            src="{{ url_for('static', filename='images/stocks/asset 15.png')}}" alt="">
+          <img data-aos="fade-up-left" data-aos-duration="1800" class="company-logo"
+            src="{{ url_for('static', filename='images/stocks/asset 16.svg')}}" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-6">
+    <p class="footer">Copyright © 2022 MyDashboard</p>
+  </section>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="{{ url_for('static', filename='javascript/index.js') }}"></script>
+  <script src="{{ url_for('static', filename='javascript/animate.js') }}"></script>
+  <script src="{{ url_for('static', filename='javascript/navbar.js') }}"></script>
+  <script src="{{ url_for('static', filename='javascript/back-to-top-btn.js') }}"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+
+</html>

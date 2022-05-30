@@ -1,0 +1,617 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=devanagari,latin-ext');
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+/* General*/
+body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #212112;
+  background-color: #F7F9FC;
+}
+
+
+
+.container-fluid {
+  overflow: hidden;
+}
+
+/*---------------------- Section 1-------------------------------*/
+.section-1 {
+  padding-top: 15%;
+  margin: 0;
+  height: 100vh;
+  background-size: cover;
+  background-image: url('../images/bg-image-1.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  
+
+}
+
+
+/* Text in banner */
+.header {
+  color: #F7F9FC;
+  font-size: 3vw;
+  line-height: 3vw;
+
+}
+
+.underline span {
+  display: inline-block;
+}
+
+.underline span::after {
+  margin-top: -0.8vw;
+  content: '';
+  height: 3px;
+  background: #F7F9FC;
+  border-radius: 5px;
+  display: block
+}
+
+.subtext {
+  padding-top: 1vw;
+  color: #F7F9FC;
+  font-size: 1.5vw;
+  line-height: 3vw;
+}
+
+.container {
+  margin-left: 0%;
+}
+
+
+
+/* Names of company */
+.name {
+  font-family: 'Varela Round', sans-serif;
+}
+
+/* Button on banner */
+.readmore {
+  margin-left: -7px;
+  border: 2px solid white;
+  background-color: #01E59B;
+  color: white;
+  width: 200px;
+  height: 50px;
+  border-radius: 60px;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: all 500ms;
+  background-image: linear-gradient(to bottom, transparent 0%, transparent 50%, white 50%, white 100%);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 200px 180px;
+  border: none;
+  outline: none;
+
+}
+
+.readmore:focus {
+  outline: none;
+}
+
+.readmore:hover {
+  color: #01E59B;
+  background-position: 0 -90px;
+}
+
+#first {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/*---------------------- Section 2-------------------------------*/
+
+
+.section-2 {
+  position: relative;
+}
+
+
+/* Mountains image*/
+.mountain {
+  margin-top: 1%;
+  width: 100%;
+
+}
+
+/* Learn Anywhere header*/
+.img-txt {
+  position: absolute;
+  top: 7vw;
+  z-index: 1;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 3vw;
+}
+
+/*---------------------- Section 3-------------------------------*/
+
+.section-3 {
+  position: relative;
+  margin-top: -10vw;
+}
+
+
+.card {
+  margin: 30px auto;
+  width: 300px;
+  height: 300px;
+  border-radius: 40px;
+  box-shadow: 5px 5px 30px 7px rgba(0, 0, 0, 0.1), -5px -5px 30px 7px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.card .card_image {
+  width: inherit;
+  height: inherit;
+  border-radius: 40px;
+}
+
+.card .card_image img {
+  width: inherit;
+  height: inherit;
+  border-radius: 40px;
+  object-fit: cover;
+}
+
+
+.card:hover {
+  transform: scale(0.9, 0.9);
+  box-shadow: 5px 5px 30px 15px rgba(0, 0, 0, 0.25),
+    -5px -5px 30px 15px rgba(0, 0, 0, 0.22);
+}
+
+.card-header {
+  margin-top: 7%;
+  font-size: 2.3vw;
+  text-align: center;
+  background-color: transparent;
+}
+
+.card-text {
+  font-size: 1vw;
+  margin-top: 3%;
+  text-align: center;
+}
+
+
+
+
+/*---------------------- Section 4-------------------------------*/
+
+
+.section-4 {
+  margin-top: 15%;
+}
+
+
+.day-night-padding {
+  padding-top: 10%;
+  padding-bottom: 10%;
+}
+
+.text-anytime-day {
+  color: #1D2132;
+  font-size: 2vw;
+  font-weight: 600;
+}
+
+.text-anytime-night {
+  font-size: 2vw;
+  color: #F7F9FC;
+
+}
+
+.day {
+  padding-top: 10%;
+  padding-bottom: 10%;
+  background-color: #F7F9FC;
+
+}
+
+.night {
+  padding-top: 10%;
+  padding-bottom: 10%;
+  background-color: #1D2132;
+}
+
+
+.center {
+  right: 0;
+  left: 0;
+  text-align: center;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.header-anytime {
+  padding-bottom: 2vw;
+  font-size: 3vw;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  color: #1D2132;
+  text-align: center;
+}
+
+
+.day-img {
+  width: 50%;
+  border-radius: 20px;
+}
+
+.night-img{
+  width: 30%;
+  border-radius: 20px;
+}
+
+
+/*---------------------- Section 5-------------------------------*/
+
+.section-5 {
+  padding-top: 10vw;
+  margin-bottom: 4vw;
+}
+
+.footer-header {
+  font-size: 2vw;
+  text-align: center;
+  color: #1D2132;
+  padding-left: 10vw;
+  padding-right: 10vw;
+  padding-bottom: 3vw;
+}
+
+.company-logo {
+
+  width: 6vw;
+  padding: 1vw;
+}
+
+
+/*---------------------- Section 6-------------------------------*/
+
+.section-6 {
+  background-color: #1F2029;
+  padding-top: 2vw;
+  padding-bottom: 2vw;
+  margin-top: 15%;
+}
+
+.footer {
+  font-size: .8vw;
+  color: #F7F9FC;
+  text-align: center;
+}
+
+
+@media (max-width: 1200px) {
+
+  /*Section 1*/
+  .header {
+    margin-top: 20%;
+  }
+
+  .readmore {
+    width: 160px;
+    height: 40px;
+
+  }
+
+  /*Section 3*/
+  .card-header {
+    font-size: 2.2vw;
+
+  }
+
+  .card-text {
+    font-size: 1.8vw;
+  }
+
+  /*Section 4*/
+  .section-4 {
+    margin-top: 30%;
+  }
+
+  /*Section 6*/
+  .section-6 {
+    margin-top: 20%;
+  }
+
+}
+
+
+@media (max-width: 991px) {
+
+
+
+  /*Section 1*/
+
+  .header {
+    margin-top: 10%;
+  }
+
+  .subtext {
+    font-size: 2vw;
+  }
+
+  .parallax-wrap {
+    margin-top: -23%;
+  }
+
+  /*Section 3*/
+  .section-3 {
+    margin-top: -30%;
+  }
+
+  .card {
+    margin-top: 20%;
+  }
+
+  /*Section 4*/
+  .section-4 {
+    margin-top: 25%;
+  }
+
+  /*Section 5*/
+
+  .footer-header {
+    font-size: 3vw;
+  }
+
+  .company-logo {
+    width: 7vw;
+  }
+
+  /* Section 6*/
+  .section-6 {
+    margin-top: 25%;
+  }
+}
+
+@media (max-width: 769px) {
+
+  /*Section 1*/
+  .readmore {
+    width: 140px;
+    height: 35px;
+    font-size: 1.6vw;
+  }
+
+  .img1 {
+    width: 35%;
+    top: 5.7vw;
+  }
+
+  .parallax-wrap {
+    margin-top: -35%;
+  }
+
+  /*Section 3*/
+
+  .section-3 {
+    margin-top: -30%;
+  }
+
+  .card {
+    margin-top: 20%;
+  }
+
+  .card-header {
+    font-size: 3vw;
+
+  }
+
+  .card-text {
+    font-size: 2.4vw;
+  }
+
+  /*Section 4*/
+  .text-anytime-day {
+    font-size: 2.5vw;
+  }
+
+  .text-anytime-night {
+    font-size: 2.5vw;
+
+  }
+
+  /*Section 5*/
+
+  .footer-header {
+    font-size: 3.5vw;
+  }
+
+  .company-logo {
+    width: 7vw;
+  }
+
+  /* Section 6*/
+  .section-6 {
+    margin-top: 20%;
+  }
+
+}
+
+@media (max-width:600px) {
+
+  /*Section 1*/
+  .parallax-wrap {
+    margin-top: -40%;
+  }
+}
+
+@media (max-width: 576px) {
+
+
+  /*Section 1*/
+  .readmore {
+    width: 120px;
+    height: 30px;
+    font-size: 2vw;
+
+  }
+
+  .header {
+    margin-top: 25%;
+    font-size: 4vw;
+  }
+
+
+
+  .subtext {
+    font-size: 3vw;
+  }
+
+  .img1 {
+    width: 40%;
+    top: 6.3vw;
+  }
+
+  /*Section 2*/
+
+  .img-txt {
+    font-size: 4vw;
+  }
+
+  /*Section 3*/
+  .card {
+    width: 200px;
+    height: 200px;
+    margin-top: 25%;
+  }
+
+  .card-text {
+    font-size: 3vw;
+  }
+
+  .card-header {
+    font-size: 4vw;
+
+  }
+
+  .section-3 {
+    margin-top: -35%;
+  }
+
+  /*Section 4*/
+
+  .header-anytime {
+    font-size: 4vw;
+  }
+
+  .text-anytime-day {
+    font-size: 3vw;
+  }
+
+  .text-anytime-night {
+    font-size: 3vw;
+
+  }
+
+  /*Section 5*/
+  .company-logo {
+    width: 8vw;
+  }
+
+  /* Section 6*/
+  .section-6 {
+    margin-top: 15%;
+  }
+}
+
+@media (max-width: 360px) {
+
+
+  /*Section 1*/
+  .readmore {
+    width: 100px;
+    height: 25px;
+    font-size: 2.5vw;
+
+  }
+
+  .img1 {
+    width: 38%;
+    top: 6vw;
+  }
+
+  .header {
+    margin-top: 30%;
+  }
+
+  /*Section 2*/
+
+  .img-txt {
+    font-size: 5vw;
+  }
+
+  /*Section 3*/
+  .card-text {
+    font-size: 4vw;
+  }
+
+  .card-header {
+    font-size: 5vw;
+
+  }
+
+  .card {
+    width: 160px;
+    height: 160px;
+  }
+
+  /*Section 4*/
+
+  .header-anytime {
+    font-size: 5vw;
+  }
+
+
+  .text-anytime-day {
+    font-size: 4vw;
+  }
+
+  .text-anytime-night {
+    font-size: 4vw;
+
+  }
+
+  /*Section 5*/
+
+  .footer-header {
+    font-size: 4vw;
+  }
+
+  /*Section 5*/
+  .company-logo {
+    width: 9vw;
+  }
+
+  /* Section 6*/
+  .section-6 {
+    margin-top: 10%;
+  }
+}
+
+
+@media (pointer:none),
+(pointer:coarse) {
+  .parallax-wrap {
+    visibility: hidden;
+  }
+}
