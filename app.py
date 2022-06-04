@@ -1,16 +1,12 @@
 # Importing the modules that are needed for the program to run.
-import json
-from locale import currency
 from flask import Flask, render_template, url_for, session, flash, redirect, request, jsonify
 import os
 import hashlib
 from flaskext.mysql import MySQL
-from sklearn.metrics import balanced_accuracy_score
 from credentials import *
 from alpha_vantage.timeseries import TimeSeries
 import requests
 import numpy as np
-from alpha_vantage.timeseries import TimeSeries
 from newsapi import NewsApiClient
 import finnhub
 
