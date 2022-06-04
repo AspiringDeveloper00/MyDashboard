@@ -30,8 +30,9 @@ $(document).ready(function () {
                     tmp = [portfolio[i][0], stock_data[i][0], stock_data[i][1], stock_data[i][2], stock_data[i][3], portfolio[i][1], portfolio[i][2], (portfolio[i][1] * stock_data[i][1]).toFixed(3), (portfolio[i][1] * stock_data[i][1] - portfolio[i][2]).toFixed(3)]
                     $('#body-table').append('<tr><td>' + tmp[0] + '</td><td>' + tmp[1] + '</td><td>' + tmp[2] + '</td><td>' + tmp[3] + '</td><td>' + tmp[4] + '</td><td>' + tmp[5] + '</td><td>' + tmp[6] + '</td><td>' + tmp[7] + '</td><td>' + tmp[8] + '</td>')
                 }
+                var total=parseInt(net)+parseInt(assets[0][0])
                 $('#balance').text('Balance: ' + assets[0][0] + "$")
-                $('#net').text('Net Worth: ' + net + "$")
+                $('#net').text('Net Worth: ' + total + "$")
                 $('#comp').text('Companies Invested: ' + portfolio.length)
                 $('#num').text('Number of stocks: ' + sum)
 
